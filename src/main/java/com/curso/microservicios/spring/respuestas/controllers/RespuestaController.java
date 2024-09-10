@@ -24,10 +24,16 @@ public class RespuestaController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(respuestasDb);
 	}
 	
-	@GetMapping("alumno/{alumnoId}/{examenId}")
+	@GetMapping("/alumno/{alumnoId}/{examenId}")
 	public ResponseEntity<?> obtenerRespuestaPorAlumnoPorExamen(@PathVariable Long alumnoId, @PathVariable Long examenId){
 		Iterable<Respuesta> respuestas = respuestaService.findRespuestaByAlumnoByExamen(alumnoId, examenId);
 		return ResponseEntity.status(HttpStatus.OK).body(respuestas);
 	}
 
+	@GetMapping("alumno/{alumnoId}/examenes-respondidos")
+	public ResponseEntity<?> obtenerExamenesIdConRespuestasAlumno(@PathVariable Long alumnoId){
+		Iterable<Long> examenesIds = respuestaService.findExamenesIdsConRespuestasByAlumno(alumnoId);
+		return ResponseEntity.status(HttpStatus.OK).body(examenesIds);
+	}
+	
 }
